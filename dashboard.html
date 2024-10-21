@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: "Quicksand";
+            font-weight: 400;
+            min-width: 1024px;
+        }
+        /* width */
+        
+         ::-webkit-scrollbar {
+            width: 3.5px;
+        }
+        
+        body {
+            display: flex;
+            background: rgb(44, 43, 43);
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #000000;
+            color: white;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+        
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        
+        .sidebar .nav-item {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar .dropdown-toggle::after {
+            float: auto;
+        }
+        
+        .sidebar .collapse .nav-item {
+            font-size: 0.9em;
+            padding-left: 20px;
+        }
+        
+        .content {
+            margin-left: 250px;
+            /* Adjust this value to match the width of your sidebar */
+            padding: 20px;
+            width: calc(100% - 250px);
+            /* Adjust this value to match the width of your sidebar */
+        }
+        /* .card-custom {
+            margin: 20px;
+        } */
+        
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .sidebar h2 {
+            text-align: center;
+        }
+        
+        .card-custom {
+            background-color: #d3d3d3;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            padding: 40px;
+            /* Increase padding for larger view */
+            text-align: left;
+            margin-top: 20px;
+        }
+        
+        .card-title {
+            font-size: 22px;
+            /* Larger font size */
+        }
+        
+        .card-text {
+            font-size: 35px;
+            /* Larger font size */
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="burger.jpeg" alt="Admin Logo">
+        </div>
+        <h2>Admin</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="#">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodCategorySubmenu" data-toggle="collapse" aria-expanded="false">Food Category</a>
+                <ul class="collapse list-unstyled" id="foodCategorySubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-categories.html">View Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-category.html">Add Category</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodItemsSubmenu" data-toggle="collapse" aria-expanded="false">Food Items</a>
+                <ul class="collapse list-unstyled" id="foodItemsSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-items.html">View Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-item.html">Add Item</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#staffSubmenu" data-toggle="collapse" aria-expanded="false">Staff</a>
+                <ul class="collapse list-unstyled" id="staffSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-staff.html">View Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-staff.html">Add Staff</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="client-site.html">Client Site</a>
+            </li>
+        </ul>
+    </div>
+
+    <div class="content p-4">
+        <div class="container">
+            <!-- Dashboard -->
+            <section class="bg-light dashboard text-dark">
+                <div class="container">
+                    <div class="py-4 d-flex flex-column flex-sm-column flex-md-column flex-lg-row justify-content-between align-items-center">
+
+                        <div class="d-flex">
+                            <h5></h5>
+
+                            <div class="ms-5">
+                                <a class="text-decoration-none" href="index.html">
+                                    <span class="text-primary small-text">Home</span>
+                                </a>
+                                <span class="text-muted small-text">/ Dashboard</span>
+                            </div>
+
+                        </div>
+                        <button id="clear-orders-btn" class="btn btn-danger mb-3">Clear Orders</button>
+                        <form class="d-flex">
+
+                            <a href="index.html" button class="dropdown-item">Logout</button></a>
+                        </form>
+                    </div>
+
+                    <!-- First Part -->
+                    <div class="container mt-5">
+                        <h1 class="text-center"></h1>
+
+                        <div class="row">
+                            <div class="col-md-3">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Staff Number</h5>
+                                        <p class="card-text" id="staffNumber">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Food Categories</h5>
+                                        <p class="card-text" id="categoriesNumber">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Food Items</h5>
+                                        <p class="card-text" id="foodSales">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-3">
+                                <div class="card card-custom">
+                                    <div class="card-body">
+                                        <h5 class="card-title">Food Ordered</h5>
+                                        <p class="card-text" id="foodOrdered">Loading...</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+
+                        <div class="row mt-4">
+                            <div class="col-md-12">
+                                <div class="card">
+                                    <div class="card-header">Order Details</div>
+                                    <div class="card-body">
+                                        <div id="order-details"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+
+                </div>
+            </section>
+
+
+
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const orderDetailsContainer = document.getElementById('order-details');
+        const groupedOrders = {};
+
+        orders.forEach(order => {
+            const key = `${order.tableNumber}-${order.checkoutTime}`;
+            if (!groupedOrders[key]) {
+                groupedOrders[key] = [];
+            }
+            groupedOrders[key].push(order);
+        });
+
+        for (const key in groupedOrders) {
+            const tableOrders = groupedOrders[key];
+            const [tableNumber, checkoutTime] = key.split('-');
+            const tableDiv = document.createElement('div');
+            tableDiv.className = 'mb-4';
+            tableDiv.innerHTML = `<h3>Table Number: ${tableNumber}</h3><h4>Checkout Time: ${new Date(parseInt(checkoutTime)).toLocaleString()}</h4>`;
+            const table = document.createElement('table');
+            table.className = 'table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Food Image</th>
+                        <th>Food Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Delivered</th>
+                        <th>Paid</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            const tbody = table.querySelector('tbody');
+            let totalPrice = 0;
+            tableOrders.forEach((order, orderIndex) => {
+                order.selectedItems.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;"></td>
+                        <td>${item.name}</td>
+                        <td>${item.category}</td>
+                        <td>$${item.price}</td>
+                        <td><input type="checkbox" ${order.delivered ? 'checked' : ''} onchange="updateOrderStatus(${orderIndex}, 'delivered', this.checked)"></td>
+                        <td><input type="checkbox" ${order.paid ? 'checked' : ''} onchange="updateOrderStatus(${orderIndex}, 'paid', this.checked)"></td>
+                    `;
+                    tbody.appendChild(row);
+                    totalPrice += item.price;
+                });
+            });
+            tableDiv.appendChild(table);
+            tableDiv.innerHTML += `<h4>Total Price: $${totalPrice}</h4>`;
+            tableDiv.innerHTML += `<button class="btn btn-primary" onclick="generateInvoice(${tableNumber}, ${checkoutTime})">Generate Invoice</button>`;
+            orderDetailsContainer.appendChild(tableDiv);
+        }
+
+        function updateOrderStatus(orderIndex, status, value) {
+            orders[orderIndex][status] = value;
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        function generateInvoice(tableNumber, checkoutTime) {
+            const key = `${tableNumber}-${checkoutTime}`;
+            const tableOrders = groupedOrders[key];
+            let invoiceContent = `
+        <h2>Invoice for Table Number: ${tableNumber}</h2>
+        <p>Checkout Time: ${new Date(parseInt(checkoutTime)).toLocaleString()}</p>
+        <table border="1" cellpadding="5" cellspacing="0">
+            <thead>
+                <tr>
+                    <th>Item</th>
+                    <th>Price</th>
+                </tr>
+            </thead>
+            <tbody>
+    `;
+            let totalPrice = 0;
+
+            // Generate table rows for each order item
+            tableOrders.forEach(order => {
+                order.selectedItems.forEach(item => {
+                    invoiceContent += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td>$${item.price.toFixed(2)}</td>
+                </tr>
+            `;
+                    totalPrice += item.price;
+                });
+            });
+
+            invoiceContent += `
+            </tbody>
+        </table>
+        <h3>Total Price: $${totalPrice.toFixed(2)}</h3>
+        <button onclick="window.print()">Print Invoice</button>
+    `;
+
+            // Create a new window and write the invoice content
+            const invoiceWindow = window.open('', '', 'width=600,height=400');
+            invoiceWindow.document.write(`
+        <html>
+            <head>
+                <title>Invoice for Table ${tableNumber}</title>
+                <style>
+                    body { font-family: Arial, sans-serif; }
+                    table { width: 100%; border-collapse: collapse; }
+                    th, td { padding: 8px; text-align: left; }
+                    th { background-color: #f2f2f2; }
+                </style>
+            </head>
+            <body>
+                ${invoiceContent}
+            </body>
+        </html>
+    `);
+            invoiceWindow.document.close(); // Close the document to signal the browser that content is ready.
+        }
+
+
+        document.getElementById('clear-orders-btn').addEventListener('click', () => {
+            if (confirm('Are you sure you want to clear all orders?')) {
+                localStorage.removeItem('orders');
+                window.location.reload();
+            }
+        });
+
+
+        document.addEventListener('DOMContentLoaded', function() {
+            // Function to get data from localStorage
+            function getDataFromLocalStorage(key) {
+                return JSON.parse(localStorage.getItem(key)) || [];
+            }
+
+            // Fetching the numbers dynamically from localStorage
+            const staffData = getDataFromLocalStorage('staff');
+            const categoriesData = getDataFromLocalStorage('categories');
+            const itemsData = getDataFromLocalStorage('items');
+
+            // Initial data
+            const data = {
+                staffNumber: staffData.length,
+                categoriesNumber: categoriesData.length,
+                foodSales: itemsData.length,
+                foodOrdered: 0 // For now, we'll keep this static unless you have order data
+            };
+
+            // Updating the card texts on page load
+            document.getElementById('staffNumber').textContent = data.staffNumber;
+            document.getElementById('categoriesNumber').textContent = data.categoriesNumber;
+            document.getElementById('foodSales').textContent = data.foodSales;
+            document.getElementById('foodOrdered').textContent = data.foodOrdered;
+
+            // Function to update card values dynamically
+            function updateDashboard() {
+                document.getElementById('staffNumber').textContent = data.staffNumber;
+                document.getElementById('categoriesNumber').textContent = data.categoriesNumber;
+                document.getElementById('foodSales').textContent = data.foodSales;
+                document.getElementById('foodOrdered').textContent = data.foodOrdered;
+            }
+
+            // Function to simulate adding new staff, categories, and items
+            function addStaff() {
+                data.staffNumber++;
+                updateDashboard();
+            }
+
+            function addCategory() {
+                data.categoriesNumber++;
+                updateDashboard();
+            }
+
+            function addFoodItem() {
+                data.foodSales++;
+                updateDashboard();
+            }
+
+            function addOrder() {
+                data.foodOrdered++;
+                updateDashboard();
+            }
+
+            // You can call these functions when appropriate actions are taken
+            // addStaff(); // Call when staff is added
+            // addCategory(); // Call when a category is added
+            // addFoodItem(); // Call when an item is added
+            // addOrder(); // Call when an order is placed
+
+            // Simulating item additions to update dashboard initially
+            updateDashboard();
+        });
+    </script>
+
+    </script>
+</body>
+
+</html>

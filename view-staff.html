@@ -1,0 +1,298 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <style>
+        body {
+            display: flex;
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #000000;
+            color: white;
+            position: fixed;
+            font-weight: 100;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+        
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        
+        .sidebar .nav-item {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar .dropdown-toggle::after {
+            float: auto;
+        }
+        
+        .sidebar .collapse .nav-item {
+            font-size: 0.9em;
+            padding-left: 20px;
+        }
+        
+        .content {
+            margin-left: 250px;
+            /* Adjust this value to match the width of your sidebar */
+            padding: 20px;
+            width: calc(100% - 250px);
+            /* Adjust this value to match the width of your sidebar */
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .sidebar h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="burger.jpeg" alt="Admin Logo">
+        </div>
+        <h2>Admin</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodCategorySubmenu" data-toggle="collapse" aria-expanded="false">Food Category</a>
+                <ul class="collapse list-unstyled" id="foodCategorySubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-categories.html">View Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-category.html">Add Category</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodItemsSubmenu" data-toggle="collapse" aria-expanded="false">Food Items</a>
+                <ul class="collapse list-unstyled" id="foodItemsSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-items.html">View Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-item.html">Add Item</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#staffSubmenu" data-toggle="collapse" aria-expanded="false">Staff</a>
+                <ul class="collapse list-unstyled" id="staffSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-staff.html">View Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-staff.html">Add Staff</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="client-site.html">Client Site</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content p-4">
+        <h1>Staff List Table</h1>
+        <p></p>
+        <div class="container mt-5">
+            <h2></h2>
+            <div class="header-right">
+                <form action="#" class="header-search-form for-des">
+                    <input type="search" class="form-input" placeholder="Search Here...">
+                    <button type="submit">
+                    <i class="uil uil-search"></i>
+                </button>
+                </form>
+            </div>
+        </div>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Phone Number</th>
+                    <th>Date of Birth</th>
+                    <th>Address</th>
+                    <th>Role</th>
+                    <th>Photograph</th>
+
+                </tr>
+            </thead>
+            <tbody id="staffTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            const tableBody = document.getElementById('staffTableBody');
+
+            staff.forEach((member, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.name}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.dob}</td>
+                    <td>${member.address}</td>
+                    <td>${member.role}</td>
+                    <td><img src="${member.photo}" alt="${member.name}" width="50"></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deleteStaff(${index})">Delete</button>
+                        <button class="btn btn-primary btn-sm" onclick="editStaff(${index})">Edit</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        });
+
+        function deleteStaff(index) {
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            staff.splice(index, 1);
+            localStorage.setItem('staff', JSON.stringify(staff));
+            location.reload(); // Reload the page to reflect the changes
+        }
+
+        function editStaff(index) {
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            const member = staff[index];
+            const newName = prompt("Enter new full name:", member.name);
+            const newPhone = prompt("Enter new phone number:", member.phone);
+            const newDob = prompt("Enter new date of birth:", member.dob);
+            const newAddress = prompt("Enter new address:", member.address);
+            const newRole = prompt("Enter new role:", member.role);
+            const newPhoto = prompt("Enter new photograph URL:", member.photo);
+
+            if (newName && newPhone && newDob && newAddress && newRole && newPhoto) {
+                staff[index] = {
+                    name: newName,
+                    phone: newPhone,
+                    dob: newDob,
+                    address: newAddress,
+                    role: newRole,
+                    photo: newPhoto
+                };
+                localStorage.setItem('staff', JSON.stringify(staff));
+                location.reload(); // Reload the page to reflect the changes
+            }
+        }
+    </script>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html> --
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>View Staff</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Staff Members</h2>
+        <table class="table table-striped">
+            <thead>
+                <tr>
+                    <th>Full Name</th>
+                    <th>Phone Number</th>
+                    <th>Date of Birth</th>
+                    <th>Address</th>
+                    <th>Role</th>
+                    <th>Photograph</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody id="staffTableBody">
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            const tableBody = document.getElementById('staffTableBody');
+
+            staff.forEach((member, index) => {
+                const row = document.createElement('tr');
+                row.innerHTML = `
+                    <td>${member.name}</td>
+                    <td>${member.phone}</td>
+                    <td>${member.dob}</td>
+                    <td>${member.address}</td>
+                    <td>${member.role}</td>
+                    <td><img src="${member.photo}" alt="${member.name}" width="50"></td>
+                    <td>
+                        <button class="btn btn-danger btn-sm" onclick="deleteStaff(${index})">Delete</button>
+                        <button class="btn btn-primary btn-sm" onclick="editStaff(${index})">Edit</button>
+                    </td>
+                `;
+                tableBody.appendChild(row);
+            });
+        });
+
+        function deleteStaff(index) {
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            staff.splice(index, 1);
+            localStorage.setItem('staff', JSON.stringify(staff));
+            location.reload(); // Reload the page to reflect the changes
+        }
+
+        function editStaff(index) {
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            const member = staff[index];
+            const newName = prompt("Enter new full name:", member.name);
+            const newPhone = prompt("Enter new phone number:", member.phone);
+            const newDob = prompt("Enter new date of birth:", member.dob);
+            const newAddress = prompt("Enter new address:", member.address);
+            const newRole = prompt("Enter new role:", member.role);
+            const newPhoto = prompt("Enter new photograph URL:", member.photo);
+
+            if (newName && newPhone && newDob && newAddress && newRole && newPhoto) {
+                staff[index] = {
+                    name: newName,
+                    phone: newPhone,
+                    dob: newDob,
+                    address: newAddress,
+                    role: newRole,
+                    photo: newPhoto
+                };
+                localStorage.setItem('staff', JSON.stringify(staff));
+                location.reload(); // Reload the page to reflect the changes
+            }
+        }
+    </script>
+</body>
+</html>

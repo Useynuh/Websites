@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            background: rgb(22, 22, 22);
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #000000;
+            color: white;
+            font-weight: 100;
+            padding: 15px;
+        }
+        
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            padding: 0px;
+            margin: 5px;
+            margin-top: 25px;
+        }
+        
+        .sidebar .nav-item {
+            margin-bottom: 10px;
+            margin-top: 3px;
+        }
+        
+        .sidebar .dropdown-toggle::after {
+            /* content: '15BC'; */
+            float: auto;
+        }
+        
+        .sidebar .collapse .nav-item {
+            font-size: 0.9em;
+            padding-left: 20px;
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .sidebar h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="burger.jpeg" alt="Admin Logo">
+        </div>
+        <h2>Admin</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodCategorySubmenu" data-toggle="collapse" aria-expanded="false">Food Category</a>
+                <ul class="collapse list-unstyled" id="foodCategorySubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-categories.html">View Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-category.html">Add Category</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodItemsSubmenu" data-toggle="collapse" aria-expanded="false">Food Items</a>
+                <ul class="collapse list-unstyled" id="foodItemsSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-items.html">View Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-item.html">Add Item</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#staffSubmenu" data-toggle="collapse" aria-expanded="false">Staff</a>
+                <ul class="collapse list-unstyled" id="staffSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-staff.html">View Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-staff.html">Add Staff</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="client-site.html">Client Site</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content p-4">
+        <h1></h1>
+
+        <div class="container mt-5">
+            <h2 style="color: beige;">Add Food Category</h2>
+            <form id="categoryForm">
+                <div class="form-group">
+                    <label for="categoryName" style="color: beige;">Name</label>
+                    <input type="text" class="form-control" id="categoryName" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoryType" style="color: beige;">Type</label>
+                    <input type="text" class="form-control" id="categoryType" required>
+                </div>
+                <div class="form-group">
+                    <label for="categoryImage" style="color: beige;">Image</label>
+                    <input type="file" class="form-control-file" id="categoryImage" required>
+                </div>
+                <button type="submit" class="btn btn-primary">Add Category</button>
+            </form>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('categoryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('categoryName').value;
+            const type = document.getElementById('categoryType').value;
+            const image = document.getElementById('categoryImage').files[0].name;
+
+            const categories = JSON.parse(localStorage.getItem('categories')) || [];
+            categories.push({
+                name,
+                type,
+                image
+            });
+            localStorage.setItem('categories', JSON.stringify(categories));
+
+            alert('Category added successfully!');
+            window.location.href = 'add-category.html';
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Category</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Food Category</h2>
+        <form id="categoryForm">
+            <div class="form-group">
+                <label for="categoryName">Name</label>
+                <input type="text" class="form-control" id="categoryName" required>
+            </div>
+            <div class="form-group">
+                <label for="categoryType">Type</label>
+                <input type="text" class="form-control" id="categoryType" required>
+            </div>
+            <div class="form-group">
+                <label for="categoryImage">Image</label>
+                <input type="file" class="form-control-file" id="categoryImage" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Category</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('categoryForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('categoryName').value;
+            const type = document.getElementById('categoryType').value;
+            const image = document.getElementById('categoryImage').files[0].name;
+
+            const categories = JSON.parse(localStorage.getItem('categories')) || [];
+            categories.push({ name, type, image });
+            localStorage.setItem('categories', JSON.stringify(categories));
+
+            alert('Category added successfully!');
+            window.location.href = 'view-category.html';
+        });
+    </script>
+</body>
+</html> -->

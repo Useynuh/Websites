@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Order Details</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <style>
+        .order {
+            width: 300px;
+            margin: 0 auto;
+        }
+        .order-list {
+            max-height: 400px; /* Adjust the height as needed */
+            overflow-y: auto;
+            background: #f8f9fa;
+            padding: 15px;
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+        }
+        .order-inner {
+            padding: 10px;
+        }
+        .checkout-detail {
+            display: flex;
+            justify-content: space-between;
+            padding: 5px 0;
+        }
+        .btn-md {
+            width: 100%;
+            margin: 5px 0;
+        }
+        .outline {
+            background: none;
+            border: 1px solid #007bff;
+            color: #007bff;
+        }
+        .fill {
+            background: #007bff;
+            border: none;
+            color: white;
+        }
+    </style>
+</head>
+<body>
+    <div class="order">
+        <div class="order-list">
+            <h3>Order Summary</h3>
+            <hr>
+            <div class="order-inner" id="order-details">
+                <!-- Orders will be displayed here -->
+            </div>
+            <hr>
+            <div class="checkout">
+                <div class="checkout-detail" id="qty">
+                    <h5>0 item(s)</h5>
+                    <h5>qty: <span>0</span></h5>
+                </div>
+                <div class="checkout-detail" id="subtotal">
+                    <h5>Subtotal</h5>
+                    <h4>$0</h4>
+                </div>
+                <div class="checkout-detail" id="tax" data-tax="5">
+                    <h5>Tax</h5>
+                    <h4>5%</h4>
+                </div>
+                <div class="checkout-detail" id="total">
+                    <h3>Total</h3>
+                    <h3>$0</h3>
+                </div>
+                <div class="checkout-detail">
+                    <button type="button" class="btn-md outline">hold order</button>
+                    <button type="button" class="btn-md fill">checkout</button>
+                    <br>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        const orders = JSON.parse(localStorage.getItem('orders')) || [];
+        const orderDetailsContainer = document.getElementById('order-details');
+        const groupedOrders = {};
+
+        orders.forEach(order => {
+            const key = `${order.tableNumber}-${order.checkoutTime}`;
+            if (!groupedOrders[key]) {
+                groupedOrders[key] = [];
+            }
+            groupedOrders[key].push(order);
+        });
+
+        for (const key in groupedOrders) {
+            const tableOrders = groupedOrders[key];
+            const [tableNumber, checkoutTime] = key.split('-');
+            const tableDiv = document.createElement('div');
+            tableDiv.className = 'mb-4';
+            tableDiv.innerHTML = `<h3>Table Number: ${tableNumber}</h3><h4>Checkout Time: ${new Date(parseInt(checkoutTime)).toLocaleString()}</h4>`;
+            const table = document.createElement('table');
+            table.className = 'table';
+            table.innerHTML = `
+                <thead>
+                    <tr>
+                        <th>Food Image</th>
+                        <th>Food Name</th>
+                        <th>Category</th>
+                        <th>Price</th>
+                        <th>Delivered</th>
+                        <th>Paid</th>
+                    </tr>
+                </thead>
+                <tbody></tbody>
+            `;
+            const tbody = table.querySelector('tbody');
+            let totalPrice = 0;
+            tableOrders.forEach((order, orderIndex) => {
+                order.selectedItems.forEach(item => {
+                    const row = document.createElement('tr');
+                    row.innerHTML = `
+                        <td><img src="${item.image}" alt="${item.name}" style="width: 50px; height: 50px;"></td>
+                        <td><h3>${item.name}</h3></td>
+                        <td>${item.category}</td>
+                        <td>$${item.price}</td>
+                        <td><input type="checkbox" ${order.delivered ? 'checked' : ''} onchange="updateOrderStatus(${orderIndex}, 'delivered', this.checked)"></td>
+                        <td><input type="checkbox" ${order.paid ? 'checked' : ''} onchange="updateOrderStatus(${orderIndex}, 'paid', this.checked)"></td>
+                    `;
+                    tbody.appendChild(row);
+                    totalPrice += item.price;
+                });
+            });
+            tableDiv.appendChild(table);
+            tableDiv.innerHTML += `<h4>Total Price: $${totalPrice}</h4>`;
+            tableDiv.innerHTML += `<button class="btn btn-primary" onclick="generateInvoice(${tableNumber}, ${checkoutTime})">Generate Invoice</button>`;
+            orderDetailsContainer.appendChild(tableDiv);
+        }
+
+        function updateOrderStatus(orderIndex, status, value) {
+            orders[orderIndex][status] = value;
+            localStorage.setItem('orders', JSON.stringify(orders));
+        }
+
+        function generateInvoice(tableNumber, checkoutTime) {
+            const key = `${tableNumber}-${checkoutTime}`;
+            const tableOrders = groupedOrders[key];
+            let invoiceContent = `Invoice for Table Number: ${tableNumber}\nCheckout Time: ${new Date(parseInt(checkoutTime)).toLocaleString()}\n\n`;
+            let totalPrice = 0;
+            tableOrders.forEach(order => {
+                order.selectedItems.forEach(item => {
+                    invoiceContent += `Item: ${item.name}, Price: $${item.price}\n`;
+                    totalPrice += item.price;
+                });
+            });
+            invoiceContent += `\nTotal Price: $${totalPrice}`;
+            alert(invoiceContent);
+        }
+    </script>
+</body>
+</html>

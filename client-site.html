@@ -1,0 +1,410 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>Fast food</title>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"> -->
+    <!-- Main CSS -->
+    <link rel="stylesheet" href="css/styles.css">
+    <link rel="stylesheet" href="css/icons/all.css">
+</head>
+<style>
+
+</style>
+
+<body>
+    <div class="container">
+        <!-- Left Side Navbar -->
+        <nav class="side-nav">
+            <ul class="nav-links">
+                <li><a href="#" class="nav-item active" data-target="menu"><i class="fas fa-hamburger"
+                            style="font-size:24px;margin-bottom:3px;"></i>MENU</a></li>
+                <li><a href="#" class="nav-item" data-target="drink"><i class="fas fa-beer"
+                            style="font-size:24px;margin-bottom:3px;"></i>Drink</a></li>
+            </ul>
+        </nav>
+        <!-- End Left Side Navbar -->
+
+        <!-- Right Body -->
+        <div class="main-body">
+            <!-- Header -->
+            <header class="header">
+                <div class="logo">
+                    <h2>Clent Site</h2>
+                </div>
+                <div class="search-bar">
+                    <input type="text" name="menu" placeholder="Search menu..">
+                    <button type="button"><i class="fas fa-search"></i></button>
+                </div>
+                <div class="usr-toggle">
+                    <ul class="nav-links header">
+                        <li><a href="login.html" class="nav-item"><i class="fas fa-user"></i></a></li>
+                    </ul>
+                </div>
+            </header>
+            <!-- End Header -->
+
+            <!-- Main Menu -->
+            <div class="main-menu">
+                <div class="menu-page show-up" id="menu">
+                    <!-- Category -->
+                    <div class="category">
+                        <ul class="nav-links category">
+                            <li><a href="javascript:void(0)" id="all-burg" class="nav-item active">All</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Category -->
+                    <!-- Menu items -->
+                    <div class="menus">
+                        <div class="menu burger" data-menu="beef-burg">
+                            <img src="assets/images/chips2.jpeg" alt="beef">
+                            <h2 class="price">$2.7</h2>
+                            <div class="desc-item">
+                                <h3>Chips</h3>
+                                <p>Potato</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu burger" data-menu="beef-burg">
+                            <img src="assets/images/waina.jpeg" alt="beef">
+                            <h2 class="price">$2</h2>
+                            <div class="desc-item">
+                                <h3>Waina</h3>
+                                <p>Food</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="beef-burg">
+                            <img src="assets/images/burger.jpeg" alt="beef">
+                            <h2 class="price">$1.9</h2>
+                            <div class="desc-item">
+                                <h3>beef Burger</h3>
+                                <p>Bread</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="beef-burg">
+                            <img src="assets/images/chik.jpeg" alt="beef">
+                            <h2 class="price">$2.9</h2>
+                            <div class="desc-item">
+                                <h3>Chicken</h3>
+                                <p>Chicken</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="bacon-burg">
+                            <img src="assets/images/friedrice.jpeg" alt="beef">
+                            <h2 class="price">$2.0</h2>
+                            <div class="desc-item">
+                                <h3>Fried-Rice</h3>
+                                <p>Rice</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="bacon-burg">
+                            <img src="assets/images/pizza.png" alt="beef">
+                            <h2 class="price">$1.9</h2>
+                            <div class="desc-item">
+                                <h3>Pizza</h3>
+                                <p>Bread</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="bacon-burg">
+                            <img src="assets/images/con1.jpeg" alt="beef">
+                            <h2 class="price">$2.0</h2>
+                            <div class="desc-item">
+                                <h3>White Rice</h3>
+                                <p>Rice</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chesee-burg">
+                            <img src="assets/images/bread.jpeg" alt="chesee">
+                            <h2 class="price">$1.8</h2>
+                            <div class="desc-item">
+                                <h3>Bread Succer</h3>
+                                <p>Bread</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chesee-burg">
+                            <img src="assets/images/con4.jpeg" alt="chesee">
+                            <h2 class="price">$2.3</h2>
+                            <div class="desc-item">
+                                <h3>Chips & Plantain</h3>
+                                <p>Potato</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chesee-burg">
+                            <img src="assets/images/con3.jpeg" alt="chesee">
+                            <h2 class="price">$1.9</h2>
+                            <div class="desc-item">
+                                <h3>cheese burger</h3>
+                                <p>Bread</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chicken-burg">
+                            <img src="assets/images/moimoi.jpeg" alt="chicken">
+                            <h2 class="price">$1.9</h2>
+                            <div class="desc-item">
+                                <h3>Moi-Moi</h3>
+                                <p>Food</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chicken-burg">
+                            <img src="assets/images/burgar.jpeg" alt="chicken">
+                            <h2 class="price">$1.8</h2>
+                            <div class="desc-item">
+                                <h3>chicken burger</h3>
+                                <p>Bread</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chicken-burg">
+                            <img src="assets/images/burg.jpeg" alt="chicken">
+                            <h2 class="price">$1.5</h2>
+                            <div class="desc-item">
+                                <h3>Sandwitch</h3>
+                                <p>Bread</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                        <div class="menu burger" data-menu="chicken-burg">
+                            <img src="assets/images/tuwo3.jpeg" alt="chicken">
+                            <h2 class="price">$2.5</h2>
+                            <div class="desc-item">
+                                <h3>Tuwo</h3>
+                                <p>Food</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+                    </div>
+                    <!-- End Menu Items -->
+                </div>
+                <div class="menu-page" id="drink">
+                    <!-- Category -->
+                    <div class="category">
+                        <ul class="nav-links category">
+                            <li><a href="javascript:void(0)" id="all-dri" class="nav-item active">All</a></li>
+                        </ul>
+                    </div>
+                    <!-- End Category -->
+                    <!-- Menu items -->
+                    <div class="menus">
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/5alive.jpeg" alt="coca cola">
+                            <h2 class="price">$1.5</h2>
+                            <div class="desc-item">
+                                <h3>5alive</h3>
+                                <p>Juice </p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/alive.jpeg" alt="coca cola">
+                            <h2 class="price">$1.5</h2>
+                            <div class="desc-item">
+                                <h3>5alive</h3>
+                                <p>Juice </p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/exotic.jpeg" alt="coca cola">
+                            <h2 class="price">$1.5</h2>
+                            <div class="desc-item">
+                                <h3>Exotic</h3>
+                                <p>Juice</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/malt.jpeg" alt="coca cola">
+                            <h2 class="price">$1.2</h2>
+                            <div class="desc-item">
+                                <h3>Maltina</h3>
+                                <p>Soft Mineral</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/coke.jpeg" alt="coca cola">
+                            <h2 class="price">$1.0</h2>
+                            <div class="desc-item">
+                                <h3>Coca cola</h3>
+                                <p>Soft Mineral</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/soft.jpeg" alt="coca cola">
+                            <h2 class="price">$0.8</h2>
+                            <div class="desc-item">
+                                <h3>Lemon</h3>
+                                <p>Fruit</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/fanta.jpeg" alt="coca cola">
+                            <h2 class="price">$1.0</h2>
+                            <div class="desc-item">
+                                <h3>Fanta</h3>
+                                <p>Soft Mineral</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                        <div class="menu drink" data-menu="cocacola-dri">
+                            <img src="assets/images/soft1.jpeg" alt="coca cola">
+                            <h2 class="price">$0.8</h2>
+                            <div class="desc-item">
+                                <h3>Juice</h3>
+                                <p>Fruit</p>
+                            </div>
+                            <button type="button">&#43;</button>
+                        </div>
+
+                    </div>
+                    <!-- End Menu Items -->
+                </div>
+            </div>
+            <!-- End Main Menu -->
+
+            <!-- Checkout Detail -->
+            <div class="order">
+                <div class="order-list">
+                    <h3>Order Summary</h3>
+                    <hr>
+                    <div class="order-inner">
+                        <div class="order-null">
+                            <i class="fas fa-clipboard-list"></i>
+                            <p>belum ada pesanan</p>
+                        </div>
+                    </div>
+                    <hr>
+                    <div class="checkout">
+                        <div class="checkout-detail" id="qty">
+                            <h5>0 item(s)</h5>
+                            <h5>qty: <span>0</span></h5>
+                        </div>
+                        <div class="checkout-detail" id="subtotal">
+                            <h5>Subtotal</h5>
+                            <h4>$0</h4>
+                        </div>
+                        <div class="checkout-detail" id="tax" data-tax="5">
+                            <h5>Tax</h5>
+                            <h4>5%</h4>
+                        </div>
+                        <div class="checkout-detail" id="total">
+                            <h3>Total</h3>
+                            <h3>$0</h3>
+                        </div>
+                    </div>
+                    <div class="checkout-detail">
+                        <button type="button" class="btn-md outline">hold order</button>
+                        <button id="checkout-btn" type="button" class="btn-md fill">checkout</button>
+                        <!-- <button id="checkout-btn" class="btn btn-primary mt-3">Checkout</button> -->
+                        <br>
+                    </div>
+                </div>
+            </div>
+
+
+
+            <!-- End Checkout Detail -->
+        </div>
+    </div>
+
+
+    <!-- Optional JavaScript -->
+    <!-- Include jQuery and Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="js/icons/all.js"></script>
+    <script src="js/main.js"></script>
+    <script>
+        const foodItems = [{
+                id: 1,
+                name: 'Burger',
+                category: 'Fast Food',
+                price: 10,
+                image: 'burger.jpeg'
+            }, {
+                id: 2,
+                name: 'chicken',
+                category: 'Fast Food',
+                price: 8,
+                image: 'chik.jpeg'
+            },
+            // Add more items here
+        ];
+
+        const selectedItems = [];
+
+        function displayFoodItems() {
+            const foodItemsContainer = document.getElementById('food-items');
+            foodItems.forEach(item => {
+                const itemDiv = document.createElement('div');
+                itemDiv.className = 'col-md-4';
+                itemDiv.innerHTML = `
+                    <div class="card">
+                        <img src="${item.image}" class="card-img-top" alt="${item.name}">
+                         <div class="card-body">
+                            <h5 class="card-title">${item.name}</h5>
+                            <p class="card-text">Category: ${item.category}</p>
+                            <p class="card-text">Price: $${item.price}</p>
+                            <input type="checkbox" value="${item.id}" onchange="selectItem(${item.id})"> Select
+                        </div>
+                    </div>
+                `;
+                foodItemsContainer.appendChild(itemDiv);
+            });
+        }
+
+        function selectItem(itemId) {
+            const item = foodItems.find(item => item.id === itemId);
+            const itemIndex = selectedItems.findIndex(selectedItem => selectedItem.id === itemId);
+            if (itemIndex > -1) {
+                selectedItems.splice(itemIndex, 1);
+            } else {
+                selectedItems.push(item);
+            }
+        }
+
+        document.getElementById('checkout-btn').addEventListener('click', () => {
+            const tableNumber = prompt('Enter your table number:');
+            if (tableNumber) {
+                const orders = JSON.parse(localStorage.getItem('orders')) || [];
+                orders.push({
+                    tableNumber,
+                    selectedItems,
+                    delivered: false,
+                    paid: false
+                });
+                localStorage.setItem('orders', JSON.stringify(orders));
+                window.location.href = 'index.html';
+            }
+        });
+
+        displayFoodItems();
+    </script>
+
+</body>
+
+</html>

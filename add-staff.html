@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        body {
+            display: flex;
+            background: rgb(22, 22, 22);
+        }
+        
+        .sidebar {
+            width: 250px;
+            height: 100vh;
+            background: #000000;
+            color: white;
+            font-weight: 100;
+            position: fixed;
+            top: 0;
+            left: 0;
+            padding: 20px;
+        }
+        
+        .sidebar a {
+            color: white;
+            text-decoration: none;
+            margin: 5px 0;
+        }
+        
+        .sidebar .nav-item {
+            margin-bottom: 10px;
+        }
+        
+        .sidebar .dropdown-toggle::after {
+            float: auto;
+        }
+        
+        .sidebar .collapse .nav-item {
+            font-size: 0.9em;
+            padding-left: 20px;
+        }
+        
+        .content {
+            margin-left: 250px;
+            /* Adjust this value to match the width of your sidebar */
+            padding: 20px;
+            width: calc(50% - 250px);
+            /* Adjust this value to match the width of your sidebar */
+        }
+        
+        .logo {
+            display: block;
+            margin: 0 auto 10px;
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            overflow: hidden;
+        }
+        
+        .logo img {
+            width: 100%;
+            height: auto;
+        }
+        
+        .sidebar h2 {
+            text-align: center;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="sidebar">
+        <div class="logo">
+            <img src="burger.jpeg" alt="Admin Logo">
+        </div>
+        <h2>Admin</h2>
+        <ul class="nav flex-column">
+            <li class="nav-item">
+                <a class="nav-link" href="dashboard.html">Dashboard</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodCategorySubmenu" data-toggle="collapse" aria-expanded="false">Food Category</a>
+                <ul class="collapse list-unstyled" id="foodCategorySubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-categories.html">View Categories</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-category.html">Add Category</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#foodItemsSubmenu" data-toggle="collapse" aria-expanded="false">Food Items</a>
+                <ul class="collapse list-unstyled" id="foodItemsSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-items.html">View Items</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-item.html">Add Item</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link dropdown-toggle" href="#staffSubmenu" data-toggle="collapse" aria-expanded="false">Staff</a>
+                <ul class="collapse list-unstyled" id="staffSubmenu" data-parent=".sidebar">
+                    <li class="nav-item">
+                        <a class="nav-link" href="view-staff.html">View Staff</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="add-staff.html">Add Staff</a>
+                    </li>
+                </ul>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="client-site.html">Client Site</a>
+            </li>
+        </ul>
+    </div>
+    <div class="content p-4">
+        <h2 style="color: beige;">Add Staff</h2>
+        <hr>
+        <form id="staffForm">
+            <div class="form-group">
+                <label for="staffName" style="color: beige;">Full Name</label>
+                <input type="text" class="form-control" id="staffName" required>
+            </div>
+            <div class="form-group">
+                <label for="staffPhone" style="color: beige;">Phone Number</label>
+                <input type="tel" class="form-control" id="staffPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="staffDOB" style="color: beige;">Date of Birth</label>
+                <input type="date" class="form-control" id="staffDOB" required>
+            </div>
+            <div class="form-group">
+                <label for="staffAddress" style="color: beige;">Address</label>
+                <input type="text" class="form-control" id="staffAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="staffRole" style="color: beige;">Role</label>
+                <input type="text" class="form-control" id="staffRole" required>
+            </div>
+            <div class="form-group">
+                <label for="staffPhoto" style="color: beige;">Photograph</label>
+                <input type="file" class="form-control-file" id="staffPhoto" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Staff</button>
+        </form>
+    </div>
+
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+        document.getElementById('staffForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('staffName').value;
+            const phone = document.getElementById('staffPhone').value;
+            const dob = document.getElementById('staffDOB').value;
+            const address = document.getElementById('staffAddress').value;
+            const role = document.getElementById('staffRole').value;
+            const photo = document.getElementById('staffPhoto').files[0].name;
+
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            staff.push({
+                name,
+                phone,
+                dob,
+                address,
+                role,
+                photo
+            });
+            localStorage.setItem('staff', JSON.stringify(staff));
+
+            alert('Staff added successfully!');
+            window.location.href = 'view-staff.html';
+        });
+    </script>
+</body>
+
+</html>
+
+
+<!-- <!DOCTYPE html> 
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Staff</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+    <div class="container mt-5">
+        <h2>Add Staff</h2>
+        <form id="staffForm">
+            <div class="form-group">
+                <label for="staffName">Full Name</label>
+                <input type="text" class="form-control" id="staffName" required>
+            </div>
+            <div class="form-group">
+                <label for="staffPhone">Phone Number</label>
+                <input type="tel" class="form-control" id="staffPhone" required>
+            </div>
+            <div class="form-group">
+                <label for="staffDOB">Date of Birth</label>
+                <input type="date" class="form-control" id="staffDOB" required>
+            </div>
+            <div class="form-group">
+                <label for="staffAddress">Address</label>
+                <input type="text" class="form-control" id="staffAddress" required>
+            </div>
+            <div class="form-group">
+                <label for="staffRole">Role</label>
+                <input type="text" class="form-control" id="staffRole" required>
+            </div>
+            <div class="form-group">
+                <label for="staffPhoto">Photograph</label>
+                <input type="file" class="form-control-file" id="staffPhoto" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Staff</button>
+        </form>
+    </div>
+
+    <script>
+        document.getElementById('staffForm').addEventListener('submit', function(event) {
+            event.preventDefault();
+            const name = document.getElementById('staffName').value;
+            const phone = document.getElementById('staffPhone').value;
+            const dob = document.getElementById('staffDOB').value;
+            const address = document.getElementById('staffAddress').value;
+            const role = document.getElementById('staffRole').value;
+            const photo = document.getElementById('staffPhoto').files[0].name;
+
+            const staff = JSON.parse(localStorage.getItem('staff')) || [];
+            staff.push({ name, phone, dob, address, role, photo });
+            localStorage.setItem('staff', JSON.stringify(staff));
+
+            alert('Staff added successfully!');
+            window.location.href = 'view-staff.html';
+        });
+    </script>
+</body>
+</html>
